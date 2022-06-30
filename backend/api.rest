@@ -1,0 +1,16 @@
+### Variables
+@apiurl = http://localhost:8080
+
+### List all categories
+GET {{apiurl}}/categories HTTP/1.1
+
+### Create a new category
+POST {{apiurl}}/categories HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Telefone"
+}
+
+### Get a category
+GET {{apiurl}}/categories/1 HTTP/1.1
