@@ -38,13 +38,13 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<Category> create(@Valid @RequestBody Category category, HttpServletResponse response) {
         Category categorySaved = categoryService.save(category);
-        publisher.publishEvent(new EventResource(this, response, categorySaved.getCode()));
+        publisher.publishEvent(new EventResource(this, response, categorySaved.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<Category> getCategoryByCode(@PathVariable Long code) {
-        Category category = categoryService.getOne(code);
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategoryByCode(@PathVariable Long id) {
+        Category category = categoryService.getOne(id);
         return category != null ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
     }
 }

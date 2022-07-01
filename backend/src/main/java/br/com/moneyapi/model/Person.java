@@ -16,7 +16,7 @@ import lombok.Data;
 public class Person {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Long id;
     
     @NotNull
     private String name;

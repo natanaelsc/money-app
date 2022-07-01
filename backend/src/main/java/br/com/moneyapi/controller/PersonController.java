@@ -33,25 +33,25 @@ public class PersonController {
     @PostMapping
 	public ResponseEntity<Person> create(@Valid @RequestBody Person person, HttpServletResponse response) {
 		Person personSaved = personService.save(person);
-		publisher.publishEvent(new EventResource(this, response, personSaved.getCode()));	
+		publisher.publishEvent(new EventResource(this, response, personSaved.getId()));	
 		return ResponseEntity.status(HttpStatus.CREATED).body(personSaved);
 	}
 	
-	@GetMapping("/{code}")
-	public ResponseEntity<Person> findByCode(@PathVariable Long code) {
-        Person person = personService.getOne(code);
+	@GetMapping("/{id}")
+	public ResponseEntity<Person> findById(@PathVariable Long id) {
+        Person person = personService.getOne(id);
         return person != null ? ResponseEntity.ok(person) : ResponseEntity.notFound().build();
 	}
 
-	@DeleteMapping("/{code}")
-	public ResponseEntity<Void> delete(@PathVariable Long code) {
-		personService.delete(code);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		personService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("/{code}")
-	public ResponseEntity<Person> putMethodName(@PathVariable Long code, @Valid @RequestBody Person person) {
-		personService.update(code, person);
+	@PutMapping("/{id}")
+	public ResponseEntity<Person> putMethodName(@PathVariable Long id, @Valid @RequestBody Person person) {
+		personService.update(id, person);
 		return ResponseEntity.ok(person);
 	}
 }

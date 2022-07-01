@@ -28,7 +28,7 @@ public class PersonService {
 
     public Person update(Long id, Person person) {
         Person personSaved = getOne(id);
-        BeanUtils.copyProperties(person, personSaved, "code");
+        BeanUtils.copyProperties(person, personSaved, "id");
         return personRepository.save(personSaved);
     }
 }

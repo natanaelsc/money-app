@@ -16,7 +16,7 @@ import lombok.Data;
 public class Category {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Long id;
 
     @NotNull
     @Size(min = 3, max = 20)

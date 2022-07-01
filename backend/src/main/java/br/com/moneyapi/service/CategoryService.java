@@ -23,7 +23,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category getOne(Long code) {
-        return categoryRepository.findById(code).orElseThrow(() -> new EmptyResultDataAccessException(1));
+    public Category getOne(Long id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 }
