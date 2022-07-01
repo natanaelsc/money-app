@@ -1,0 +1,74 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/docker-existing-dockerfile
+{
+	"name": "Java Application",
+	
+  	"dockerComposeFile": "docker-compose.yml",
+	"service": "backend",
+	"workspaceFolder": "/home/backend",
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+				// "java.configuration.runtimes": [
+				// 	{
+				// 	  "name": "JavaSE-17",
+				// 	  "path": "/opt/java/openjdk",
+				// 	  "default": true
+				// 	}
+				// ],
+				"terminal.integrated.defaultProfile.linux": "zsh", 
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				}
+			},
+			
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"pivotal.vscode-boot-dev-pack",
+				"vscjava.vscode-lombok"
+			]
+		}
+	},
+
+	// "runServices": [
+	// 	"backend",
+	// 	"mysql",
+	// 	"phpmyadmin"
+	// ],
+	
+	"forwardPorts": [8080, 8082, 35730, 3306],
+
+	"portsAttributes": {
+		"8080": {
+			"label": "Backend",
+			"onAutoForward": "notify"
+		},
+		"35730": {
+			"label": "LiveReload",
+			"onAutoForward": "ignore"
+		},
+		"3306": {
+			"label": "MySQL",
+			"onAutoForward": "notify"
+		},
+		"8082": {
+			"label": "phpMyAdmin",
+			"onAutoForward": "openBrowser"
+		}
+	},
+	
+	"postStartCommand": "java -version && mvn -version",
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
+	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+
+	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+
+	"shutdownAction": "stopCompose"
+}
