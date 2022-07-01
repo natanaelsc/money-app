@@ -30,13 +30,13 @@ public class CategoryController {
 
     @GetMapping
     public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+        return categoryService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Category> create(@Valid @RequestBody Category category, HttpServletResponse response) {
-        Category categorySaved = categoryService.createCategory(category);
+        Category categorySaved = categoryService.save(category);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}")
             .buildAndExpand(categorySaved.getCode()).toUri();
         response.setHeader("Location", uri.toASCIIString());
@@ -45,7 +45,7 @@ public class CategoryController {
 
     @GetMapping("/{code}")
     public ResponseEntity<Category> getCategoryByCode(@PathVariable Long code) {
-        Category category = categoryService.getCategoryByCode(code);
+        Category category = categoryService.getOne(code);
         return category != null ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
     }
 }

@@ -14,15 +14,15 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAllCategories() {
+    public List<Category> getAll() {
         return categoryRepository.findAll();
     }
 
-    public Category createCategory(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
-    public Category getCategoryByCode(Long code) {
+    public Category getOne(Long code) {
         return categoryRepository.findById(code).orElse(null);
     }
 }

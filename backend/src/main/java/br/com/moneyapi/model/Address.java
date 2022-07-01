@@ -2,11 +2,9 @@ package br.com.moneyapi.model;
 
 import javax.persistence.Embeddable;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Embeddable
 public class Address {
     
@@ -14,7 +12,7 @@ public class Address {
 	private String number;
 	private String complement;
 	private String district;;
-	private String zipCode;
+	private String zip;
 	private String city;
 	private String state;
 }

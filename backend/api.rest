@@ -14,3 +14,24 @@ Content-Type: application/json
 
 ### Get a category
 GET {{apiurl}}/categories/1 HTTP/1.1
+
+### Create a new person
+POST {{apiurl}}/people HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "João",
+    "address": {
+        "street": "Rua 1",
+        "number": "1",
+        "complement": "Apto 1",
+        "district": "Bairro 1",
+        "zip": "12345-678",
+        "city": "São Paulo",
+        "state": "SP"
+    },
+    "active": true
+}
+
+### Get a person
+GET {{apiurl}}/people/3 HTTP/1.1
