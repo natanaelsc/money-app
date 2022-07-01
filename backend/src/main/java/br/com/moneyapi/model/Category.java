@@ -8,7 +8,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-// @Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "category")
 public class Category {
@@ -18,22 +22,5 @@ public class Category {
 
     @NotNull
     @Size(min = 3, max = 20)
-    private String name;
-
-    public Long getCode() {
-        return this.code;
-    }
-
-    public void setCode(Long code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
+    private String name;  
 }
