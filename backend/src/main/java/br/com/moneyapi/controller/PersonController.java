@@ -50,8 +50,14 @@ public class PersonController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Person> putMethodName(@PathVariable Long id, @Valid @RequestBody Person person) {
+	public ResponseEntity<Person> update(@PathVariable Long id, @Valid @RequestBody Person person) {
 		personService.update(id, person);
 		return ResponseEntity.ok(person);
+	}
+
+	@PutMapping("/{id}/active")
+	public ResponseEntity<Person> updateStatus(@PathVariable Long id, @RequestBody Boolean active) {
+		personService.setStatus(id, active);
+		return ResponseEntity.ok().build();
 	}
 }
