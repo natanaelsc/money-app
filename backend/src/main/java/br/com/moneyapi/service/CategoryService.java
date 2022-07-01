@@ -24,6 +24,11 @@ public class CategoryService {
     }
 
     public Category getOne(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return findById(id);
+    }
+
+    private Category findById(Long id) {
+        return categoryRepository.findById(id)
+            .orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 }
