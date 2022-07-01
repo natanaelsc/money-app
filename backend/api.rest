@@ -34,4 +34,7 @@ Content-Type: application/json
 }
 
 ### Get a person
-GET {{apiurl}}/people/3 HTTP/1.1
+GET {{apiurl}}/people/4 HTTP/1.1
+
+### Delete a person
+DELETE {{apiurl}}/people/4 HTTP/1.1

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +40,11 @@ public class PersonController {
 	public ResponseEntity<Person> findByCode(@PathVariable Long code) {
         Person person = personService.getOne(code);
         return person != null ? ResponseEntity.ok(person) : ResponseEntity.notFound().build();
+	}
+
+	@DeleteMapping("/{code}")
+	public ResponseEntity<Void> delete(@PathVariable Long code) {
+		personService.delete(code);
+		return ResponseEntity.noContent().build();
 	}
 }

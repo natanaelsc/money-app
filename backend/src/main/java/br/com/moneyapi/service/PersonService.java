@@ -19,4 +19,8 @@ public class PersonService {
     public Person getOne(Long id) {
         return personRepository.findById(id).orElse(null);
     }
+
+    public void delete(Long id) {
+        personRepository.deleteById(id);
+    }
 }
