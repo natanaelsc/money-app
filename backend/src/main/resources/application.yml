@@ -1,0 +1,30 @@
+application:
+  description: Money App
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/money_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: password
+  jpa:
+    database: MYSQL
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+      # ddl-auto: update
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  devtools:
+    livereload:
+      port: 35730
+    remote:
+      secret: 123
