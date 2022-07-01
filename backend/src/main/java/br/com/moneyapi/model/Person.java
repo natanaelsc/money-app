@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 @Entity
 @Table(name = "person")
 public class Person {
@@ -23,41 +28,4 @@ public class Person {
     
     @NotNull
     private boolean active;
-
-    public Long getCode() {
-        return this.code;
-    }
-
-    public void setCode(Long code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Address getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public boolean getActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
 }
