@@ -2,7 +2,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch App",
+            "name": "Java App",
             "request": "launch",
             "mainClass": "br.com.moneyapi.MoneyApiApplication"
         }
