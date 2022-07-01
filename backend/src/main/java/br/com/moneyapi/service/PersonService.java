@@ -1,6 +1,8 @@
 package br.com.moneyapi.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.moneyapi.model.Person;
@@ -17,10 +19,16 @@ public class PersonService {
     }
 
     public Person getOne(Long id) {
-        return personRepository.findById(id).orElse(null);
+        return personRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 
     public void delete(Long id) {
         personRepository.deleteById(id);
+    }
+
+    public Person update(Long id, Person person) {
+        Person personSaved = getOne(id);
+        BeanUtils.copyProperties(person, personSaved, "code");
+        return personRepository.save(personSaved);
     }
 }

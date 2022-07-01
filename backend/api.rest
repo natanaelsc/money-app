@@ -38,3 +38,21 @@ GET {{apiurl}}/people/4 HTTP/1.1
 
 ### Delete a person
 DELETE {{apiurl}}/people/4 HTTP/1.1
+
+### Update a person
+PUT {{apiurl}}/people/8 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "João Pedro",
+    "address": {
+        "street": "Rua 1",
+        "number": "1",
+        "complement": "Apto 1",
+        "district": "Bairro 1",
+        "zip": "12345-678",
+        "city": "São Paulo",
+        "state": "SP"
+    },
+    "active": false
+}
