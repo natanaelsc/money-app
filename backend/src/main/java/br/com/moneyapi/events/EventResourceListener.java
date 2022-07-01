@@ -13,9 +13,7 @@ public class EventResourceListener implements ApplicationListener<EventResource>
 
     @Override
     public void onApplicationEvent(EventResource event) {
-        HttpServletResponse response = event.getResponse();
-        Long code = event.getCode();
-        addHeaderLocation(response, code);
+        addHeaderLocation(event.getResponse(), event.getCode());
     }
 
     private void addHeaderLocation(HttpServletResponse response, Long code) {
