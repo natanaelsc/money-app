@@ -1,12 +1,24 @@
 package br.com.moneyapi.events;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.ApplicationEvent;
 
 public class EventResource extends ApplicationEvent {
 
-    public EventResource(Object source) {
+    private static final long serialVersionUID = 1L;
+    
+    private HttpServletResponse response;
+    private Long code;
+    
+    public EventResource(Object source, HttpServletResponse response, Long code) {
         super(source);
-        //TODO Auto-generated constructor stub
+        this.response = response;
+        this.code = code;
     }
+    
+    public HttpServletResponse getResponse() { return response; }
+    
+    public Long getCode() { return code; }
     
 }
