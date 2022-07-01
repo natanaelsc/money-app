@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-  backend:
-    build: backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      phpmyadmin:
-        condition: service_started
-      mysql:
-        condition: service_healthy
-    network_mode: host
-
   mysql:
     image: mysql:8.0.23
     restart: always

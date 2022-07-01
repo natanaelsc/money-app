@@ -1,0 +1,36 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/alpine
+{
+	"name": "Alpine",
+	"dockerFile": "Dockerfile",
+	
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"java.configuration.runtimes": [
+					{
+						"name": "JavaSE-17",
+						"path": "/usr/lib/jvm/msopenjdk-17.0.3",
+						"default": true
+					}
+				],
+				"terminal.integrated.defaultProfile.linux": "zsh", 
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				}
+			},
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-java-test",
+				"pivotal.vscode-boot-dev-pack",
+				"vscjava.vscode-lombok"
+			]
+		}
+	},
+	
+	"postStartCommand": "java -version",
+	
+	"remoteUser": "vscode"
+}
