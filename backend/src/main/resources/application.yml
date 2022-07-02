@@ -7,24 +7,62 @@ server:
   port: 8080
 
 spring:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/money_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: password
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:money_db
+    username: sa
+    password: 
+
   jpa:
-    database: MYSQL
+    database: h2
+    generate-ddl: true
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: true
+        dialect: org.hibernate.dialect.H2Dialect
+        format-sql: true
     hibernate:
       ddl-auto: create-drop
-      # ddl-auto: update
+  
+  flyway:
+    enabled: false
+
+  ################################################################
+
+  # datasource:
+  #   driver-class-name: com.mysql.jdbc.Driver
+  #   url: jdbc:mysql://localhost:3306/money_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+  #   username: root
+  #   password: password
+
+  # jpa:
+  #   database: mysql
+  #   generate-ddl: false
+  #   show-sql: true
+  #   properties:
+  #     hibernate:
+  #       dialect: org.hibernate.dialect.MySQL8Dialect
+  #   hibernate:
+  #     ddl-auto: none
+
+  # flyway:
+  #   enabled: true
+  #   user: ${spring.datasource.username}
+  #   password: ${spring.datasource.password}
+  #   schemas: money_db
+  #   url: ${spring.datasource.url}
+  #   locations:
+  #     - classpath:db/migration
+
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+      
   devtools:
     livereload:
       port: 35730
