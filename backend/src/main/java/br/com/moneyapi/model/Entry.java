@@ -41,10 +41,10 @@ public class Entry {
 	private EntryType type;
 
 	@ManyToOne
-	@JoinColumn(name = "id_category")
+	@JoinColumn(name = "category_id")
 	private Category category;
 
 	@ManyToOne
-	@JoinColumn(name = "id_person")
+	@JoinColumn(name = "person_id")
 	private Person person;
 }
