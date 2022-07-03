@@ -19,6 +19,8 @@ public class EntryService {
 
     public Entry getById(Long id) { return findById(id); }
 
+    public Entry save(Entry entry) { return entryRepository.save(entry); }
+
     private Entry findById(Long id) {
         return entryRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
