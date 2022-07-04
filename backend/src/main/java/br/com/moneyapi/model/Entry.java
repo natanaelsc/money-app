@@ -45,12 +45,12 @@ public class Entry {
 	@Enumerated(EnumType.STRING)
 	private EntryType type;
 
-	@NotNull(message = "Category is required")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@NotNull(message = "Person is required")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "person_id")
 	private Person person;
