@@ -24,7 +24,7 @@ public class EntryService {
 
     public List<Entry> getAll() { return entryRepository.findAll(); }
 
-    public Entry getById(Long id) { return findById(id); }
+    public Entry getOne(Long id) { return findById(id); }
 
     public Entry save(Entry entry) { 
         Optional<Person> person = personReRepository.findById(entry.getPerson().getId());
@@ -35,6 +35,7 @@ public class EntryService {
     }
 
     private Entry findById(Long id) {
-        return entryRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        Optional<Entry> entry = entryRepository.findById(id);
+        return entry.orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 }

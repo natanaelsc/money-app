@@ -47,7 +47,7 @@ public class EntryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Entry> getOne(@PathVariable Long id) {
-        Entry entry = entryService.getById(id);
+        Entry entry = entryService.getOne(id);
         return entry != null ? ResponseEntity.ok(entry) : ResponseEntity.notFound().build();
     }
 

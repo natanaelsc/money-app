@@ -1,5 +1,7 @@
 package br.com.moneyapi.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,7 +35,7 @@ public class PersonService {
     }
 
     private Person findById(Long id) {
-        return personRepository.findById(id)
-            .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        Optional<Person> person = personRepository.findById(id);
+        return person.orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 }
