@@ -83,6 +83,12 @@
 			<version>3.12.0</version>
 		</dependency>
 
+		<!-- MetaModel -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
