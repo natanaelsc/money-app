@@ -15,17 +15,11 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
-    }
+    public List<Category> getAll() { return categoryRepository.findAll(); }
 
-    public Category save(Category category) {
-        return categoryRepository.save(category);
-    }
+    public Category save(Category category) { return categoryRepository.save(category); }
 
-    public Category getOne(Long id) {
-        return findById(id);
-    }
+    public Category getOne(Long id) { return findById(id); }
 
     private Category findById(Long id) {
         return categoryRepository.findById(id)
