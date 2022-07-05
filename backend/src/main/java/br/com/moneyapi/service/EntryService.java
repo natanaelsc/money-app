@@ -35,6 +35,8 @@ public class EntryService {
         return entryRepository.save(entry); 
     }
 
+    public void delete(Long id) { entryRepository.deleteById(id); }
+
     private Entry findById(Long id) {
         Optional<Entry> entry = entryRepository.findById(id);
         return entry.orElseThrow(() -> new EmptyResultDataAccessException(1));

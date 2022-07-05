@@ -91,3 +91,6 @@ Content-Type: application/json
         "id": 1
     }
 }
+
+### Delete a entry
+DELETE {{apiurl}}/entries/1 HTTP/1.1
