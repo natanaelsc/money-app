@@ -1,8 +1,0 @@
-{
-    "java.configuration.runtimes": [
-        {
-          "name": "JavaSE-1.8",
-          "path": "/home/natan/.asdf/installs/java/temurin-jre-8.0.332+9"
-        },
-    ]
-}
