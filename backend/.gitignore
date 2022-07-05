@@ -33,3 +33,7 @@ build/
 .vscode/
 
 .docker/mysql/data
+
+
+### Java MetaModel ###
+src/main/java/**/*_.java
