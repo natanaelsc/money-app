@@ -24,6 +24,7 @@ import br.com.moneyapi.events.EventResource;
 import br.com.moneyapi.exceptions.AppExceptionHandler.Erro;
 import br.com.moneyapi.exceptions.PersonDoesNotExistOrIsInactiveException;
 import br.com.moneyapi.model.Entry;
+import br.com.moneyapi.repository.filter.EntryFilter;
 import br.com.moneyapi.service.EntryService;
 
 
@@ -41,8 +42,8 @@ public class EntryController {
     private MessageSource messageSource;
 
     @GetMapping
-    public ResponseEntity<List<Entry>> getAll() {
-        return ResponseEntity.ok(entryService.getAll());
+    public ResponseEntity<List<Entry>> getAll(EntryFilter entryFilter) {
+        return ResponseEntity.ok(entryService.filter(entryFilter));
     }
 
     @GetMapping("/{id}")

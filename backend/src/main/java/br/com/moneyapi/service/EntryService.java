@@ -12,6 +12,7 @@ import br.com.moneyapi.model.Entry;
 import br.com.moneyapi.model.Person;
 import br.com.moneyapi.repository.EntryRepository;
 import br.com.moneyapi.repository.PersonRepository;
+import br.com.moneyapi.repository.filter.EntryFilter;
 
 @Service
 public class EntryService {
@@ -22,7 +23,7 @@ public class EntryService {
     @Autowired
     private PersonRepository personReRepository;
 
-    public List<Entry> getAll() { return entryRepository.findAll(); }
+    public List<Entry> filter(EntryFilter entryFilter) { return entryRepository.filter(entryFilter); }
 
     public Entry getOne(Long id) { return findById(id); }
 
