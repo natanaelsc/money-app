@@ -1,7 +1,5 @@
-Spring JPA
-MySQL Database 8.0
-    1. Configure the database connection
-Flyway
-    1. Add [dependency](https://flywaydb.org/documentation/database/mysql) in pom.xml
-    2. Create db/migration directory in main/resources directory
-Lambok
+# Backend Money App
+
+## Instruções VSCode
+
+Antes de iniciar a aplicação, abra o terminal no diretório do [pom.xml](/backend/pom.xml) e execute o comando `./mvnw clean package -DskipTests` para gerar o build na pasta [target](/backend/target/).
