@@ -2,4 +2,4 @@
 
 ## Instruções VSCode
 
-Antes de iniciar a aplicação, abra o terminal no diretório do [pom.xml](/backend/pom.xml) e execute o comando `./mvnw clean package -DskipTests` para gerar o build na pasta [target](/backend/target/).
+Antes de iniciar a aplicação, abra o terminal na pasta do backend (diretório atual) e execute o comando `./mvnw clean package -DskipTests` para gerar o build (.jar).
