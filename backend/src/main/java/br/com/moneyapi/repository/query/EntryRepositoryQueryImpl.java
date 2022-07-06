@@ -11,6 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
 
 import br.com.moneyapi.model.Entry;
@@ -23,7 +26,7 @@ public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
     private EntityManager manager;
 
     @Override
-    public List<Entry> filter(EntryFilter entryFilter) {
+    public Page<Entry> filter(EntryFilter entryFilter, Pageable pageable) {
        
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Entry> criteria = builder.createQuery(Entry.class);
@@ -34,9 +37,11 @@ public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
         criteria.where(predicates);
 
         TypedQuery<Entry> query = manager.createQuery(criteria);
-        return query.getResultList();
+        addRestrictionsToQuery(query, pageable);
+
+        return new PageImpl<>(query.getResultList(), pageable, total(entryFilter));
     }
-    
+
     private Predicate[] createRestrictions(EntryFilter entryFilter, CriteriaBuilder builder, Root<Entry> root) {
         
         List<Predicate> predicates = new ArrayList<>();
@@ -60,5 +65,23 @@ public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
 		return predicates.toArray(new Predicate[predicates.size()]);
     }
 
+    private void addRestrictionsToQuery(TypedQuery<Entry> query, Pageable pageable) {
+        int currentPage = pageable.getPageNumber();
+        int totalRecords = pageable.getPageSize();
+        int firstRecord = currentPage * totalRecords;
+        query.setFirstResult(firstRecord);
+        query.setMaxResults(totalRecords);
+    }
+    
+    private Long total(EntryFilter entryFilter) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        
+        Root<Entry> root = criteria.from(Entry.class);
 
+        Predicate[] predicates = createRestrictions(entryFilter, builder, root);
+        criteria.where(predicates);
+        criteria.select(builder.count(root));
+        return manager.createQuery(criteria).getSingleResult();
+    }
 }

@@ -72,6 +72,9 @@ GET {{apiurl}}/entries?description=mensal HTTP/1.1
 ### Get entries by date
 GET {{apiurl}}/entries?dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
 
+### Get entries by date and pagination
+GET {{apiurl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+
 ### Get a entry
 GET {{apiurl}}/entries/1 HTTP/1.1
 

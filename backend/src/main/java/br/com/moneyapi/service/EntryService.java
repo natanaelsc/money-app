@@ -1,10 +1,11 @@
 package br.com.moneyapi.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.moneyapi.exceptions.PersonDoesNotExistOrIsInactiveException;
@@ -23,13 +24,15 @@ public class EntryService {
     @Autowired
     private PersonRepository personReRepository;
 
-    public List<Entry> filter(EntryFilter entryFilter) { return entryRepository.filter(entryFilter); }
+    public Page<Entry> filter(EntryFilter entryFilter, Pageable pageable) { 
+        return entryRepository.filter(entryFilter, pageable); 
+    }
 
     public Entry getOne(Long id) { return findById(id); }
 
     public Entry save(Entry entry) { 
         Optional<Person> person = personReRepository.findById(entry.getPerson().getId());
-        if (!person.isPresent() || person.get().isInactive()) {
+        if (person.isEmpty() || person.get().isInactive()) {
             throw new PersonDoesNotExistOrIsInactiveException();
         }
         return entryRepository.save(entry); 
