@@ -1,26 +1,43 @@
 ### Variables
-@apiurl = http://localhost:8080
-@user = admin
-@pass = YWRtaW46YWRtaW4=
+@baseUrl = http://localhost:8080
+@basicPass = YWRtaW5AbW9uZXlhcHAuY29tOmFkbWlu
+# admin@moneyapp.com:admin
+@clientPass = YW5ndWxhcjpAbmd1bEByMA==
+# angular:@ngul@r0
+@accessToken = {{token.response.body.access_token}}
+
+### Security
+# @name token
+POST {{baseUrl}}/oauth/token HTTP/1.1
+Authorization: Basic {{clientPass}}
+Content-Type: application/x-www-form-urlencoded
+
+&client=angular
+&username=admin@moneyapp.com
+&password=admin
+&grant_type=password
 
 ### List all categories
-GET {{apiurl}}/categories HTTP/1.1
+GET {{baseUrl}}/categories HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Create a new category
-POST {{apiurl}}/categories HTTP/1.1
+POST {{baseUrl}}/categories HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
     "name": "Telefone"
 }
 
 ### Get a category
-GET {{apiurl}}/categories/1 HTTP/1.1
+GET {{baseUrl}}/categories/1 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Create a new person
-POST {{apiurl}}/people HTTP/1.1
+POST {{baseUrl}}/people HTTP/1.1
 Content-Type: application/json
-Authorization: Basic {{pass}}
+Authorization: Bearer {{accessToken}}
 
 {
     "name": "João",
@@ -37,17 +54,17 @@ Authorization: Basic {{pass}}
 }
 
 ### Get a person
-GET {{apiurl}}/people/4 HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/people/4 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Delete a person
-DELETE {{apiurl}}/people/4 HTTP/1.1
-Authorization: Basic {{pass}}
+DELETE {{baseUrl}}/people/4 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Update a person
-PUT {{apiurl}}/people/8 HTTP/1.1
+PUT {{baseUrl}}/people/8 HTTP/1.1
 Content-Type: application/json
-Authorization: Basic {{pass}}
+Authorization: Bearer {{accessToken}}
 
 {
     "name": "João Pedro",
@@ -64,36 +81,36 @@ Authorization: Basic {{pass}}
 }
 
 ### Set status for person
-PUT {{apiurl}}/people/5/active HTTP/1.1
+PUT {{baseUrl}}/people/5/active HTTP/1.1
 Content-Type: application/json
-Authorization: Basic {{pass}}
+Authorization: Bearer {{accessToken}}
 
 false
 
 ### Get all entries
-GET {{apiurl}}/entries HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/entries HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Get entries by description
-GET {{apiurl}}/entries?description=mensal HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/entries?description=mensal HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Get entries by date
-GET {{apiurl}}/entries?dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/entries?dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Get entries by date and pagination
-GET {{apiurl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Get a entry
-GET {{apiurl}}/entries/1 HTTP/1.1
-Authorization: Basic {{pass}}
+GET {{baseUrl}}/entries/1 HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Create a new entry
-POST {{apiurl}}/entries HTTP/1.1
+POST {{baseUrl}}/entries HTTP/1.1
 Content-Type: application/json
-Authorization: Basic {{pass}}
+Authorization: Bearer {{accessToken}}
 
 {
     "description": "Prêmio semestral",
@@ -109,5 +126,5 @@ Authorization: Basic {{pass}}
 }
 
 ### Delete a entry
-DELETE {{apiurl}}/entries/1 HTTP/1.1
-Authorization: Basic {{pass}}
+DELETE {{baseUrl}}/entries/1 HTTP/1.1
+Authorization: Bearer {{accessToken}}
