@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +30,17 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @EnableWebSecurity
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
+
+    @Autowired
+    public void setApplicationContext(ApplicationContext context) {
+        super.setApplicationContext(context);
+        AuthenticationManagerBuilder globalAuthBuilder = context.getBean(AuthenticationManagerBuilder.class);
+        try {
+            globalAuthBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
