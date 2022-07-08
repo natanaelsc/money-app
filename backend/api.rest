@@ -1,14 +1,12 @@
 ### Variables
 @baseUrl = http://localhost:8080
-@basicPass = YWRtaW5AbW9uZXlhcHAuY29tOmFkbWlu
-# admin@moneyapp.com:admin
-@clientPass = YW5ndWxhcjpAbmd1bEByMA
-# angular:@ngul@r0
+@userPass = admin@moneyapp.com:admin
+@clientPass = angular:@ngul@r0
+@cookie = {{token.response.headers.Set-Cookie}}
 @accessToken = {{token.response.body.access_token}}
+@refreshToken = 
 
-@refreshToken = {{token.response.body.refresh_token}}
-
-### Security
+### Access Token
 # @name token
 POST {{baseUrl}}/oauth/token HTTP/1.1
 Authorization: Basic {{clientPass}}
@@ -20,6 +18,7 @@ Content-Type: application/x-www-form-urlencoded
 &grant_type=password
 
 ### Refresh Token
+# @name token
 POST {{baseUrl}}/oauth/token HTTP/1.1
 Authorization: Basic {{clientPass}}
 Content-Type: application/x-www-form-urlencoded
