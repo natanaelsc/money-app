@@ -2,9 +2,11 @@
 @baseUrl = http://localhost:8080
 @basicPass = YWRtaW5AbW9uZXlhcHAuY29tOmFkbWlu
 # admin@moneyapp.com:admin
-@clientPass = YW5ndWxhcjpAbmd1bEByMA==
+@clientPass = YW5ndWxhcjpAbmd1bEByMA
 # angular:@ngul@r0
 @accessToken = {{token.response.body.access_token}}
+
+@refreshToken = {{token.response.body.refresh_token}}
 
 ### Security
 # @name token
@@ -16,6 +18,14 @@ Content-Type: application/x-www-form-urlencoded
 &username=admin@moneyapp.com
 &password=admin
 &grant_type=password
+
+### Refresh Token
+POST {{baseUrl}}/oauth/token HTTP/1.1
+Authorization: Basic {{clientPass}}
+Content-Type: application/x-www-form-urlencoded
+
+&grant_type=refresh_token
+&refresh_token={{refreshToken}}
 
 ### List all categories
 GET {{baseUrl}}/categories HTTP/1.1
