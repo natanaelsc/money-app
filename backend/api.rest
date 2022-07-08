@@ -4,7 +4,6 @@
 @clientPass = angular:@ngul@r0
 @cookie = {{token.response.headers.Set-Cookie}}
 @accessToken = {{token.response.body.access_token}}
-@refreshToken = 
 
 ### Access Token
 # @name token
@@ -24,7 +23,6 @@ Authorization: Basic {{clientPass}}
 Content-Type: application/x-www-form-urlencoded
 
 &grant_type=refresh_token
-&refresh_token={{refreshToken}}
 
 ### List all categories
 GET {{baseUrl}}/categories HTTP/1.1
