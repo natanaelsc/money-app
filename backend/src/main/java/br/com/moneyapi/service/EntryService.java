@@ -14,6 +14,7 @@ import br.com.moneyapi.model.Person;
 import br.com.moneyapi.repository.EntryRepository;
 import br.com.moneyapi.repository.PersonRepository;
 import br.com.moneyapi.repository.filter.EntryFilter;
+import br.com.moneyapi.repository.resume.EntryResume;
 
 @Service
 public class EntryService {
@@ -26,6 +27,10 @@ public class EntryService {
 
     public Page<Entry> filter(EntryFilter entryFilter, Pageable pageable) { 
         return entryRepository.filter(entryFilter, pageable); 
+    }
+
+    public Page<EntryResume> resume(EntryFilter entryFilter, Pageable pageable) { 
+        return entryRepository.resume(entryFilter, pageable); 
     }
 
     public Entry getOne(Long id) { return findById(id); }

@@ -114,6 +114,14 @@ Authorization: Bearer {{accessToken}}
 GET {{baseUrl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
 Authorization: Bearer {{accessToken}}
 
+### Resume entries
+GET {{baseUrl}}/entries?resume HTTP/1.1
+Authorization: Bearer {{accessToken}}
+
+### Resume entries by description
+GET {{baseUrl}}/entries?resume&description=Salário HTTP/1.1
+Authorization: Bearer {{accessToken}}
+
 ### Get a entry
 GET {{baseUrl}}/entries/1 HTTP/1.1
 Authorization: Bearer {{accessToken}}

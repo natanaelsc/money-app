@@ -30,6 +30,7 @@ import br.com.moneyapi.exceptions.AppExceptionHandler.Erro;
 import br.com.moneyapi.exceptions.PersonDoesNotExistOrIsInactiveException;
 import br.com.moneyapi.model.Entry;
 import br.com.moneyapi.repository.filter.EntryFilter;
+import br.com.moneyapi.repository.resume.EntryResume;
 import br.com.moneyapi.service.EntryService;
 
 
@@ -48,8 +49,14 @@ public class EntryController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_FIND_ENTRY') and hasAuthority('SCOPE_read')")
-    public Page<Entry> getAll(EntryFilter entryFilter, Pageable pageable) {
+    public Page<Entry> filter(EntryFilter entryFilter, Pageable pageable) {
         return entryService.filter(entryFilter, pageable);
+    }
+
+    @GetMapping(params = "resume")
+    @PreAuthorize("hasAuthority('ROLE_FIND_ENTRY') and hasAuthority('SCOPE_read')")
+    public Page<EntryResume> resume(EntryFilter entryFilter, Pageable pageable) {
+        return entryService.resume(entryFilter, pageable);
     }
 
     @GetMapping("/{id}")

@@ -16,9 +16,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
 
+import br.com.moneyapi.model.Category_;
 import br.com.moneyapi.model.Entry;
 import br.com.moneyapi.model.Entry_;
+import br.com.moneyapi.model.Person_;
 import br.com.moneyapi.repository.filter.EntryFilter;
+import br.com.moneyapi.repository.resume.EntryResume;
 
 public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
 
@@ -37,6 +40,27 @@ public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
         criteria.where(predicates);
 
         TypedQuery<Entry> query = manager.createQuery(criteria);
+        addRestrictionsToQuery(query, pageable);
+
+        return new PageImpl<>(query.getResultList(), pageable, total(entryFilter));
+    }
+
+    @Override
+    public Page<EntryResume> resume(EntryFilter entryFilter, Pageable pageable) {
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<EntryResume> criteria = builder.createQuery(EntryResume.class);
+        Root<Entry> root = criteria.from(Entry.class);
+
+        criteria.select(builder.construct(EntryResume.class, root.get(Entry_.id), root.get(Entry_.description)
+                        , root.get(Entry_.dueDate), root.get(Entry_.paymentDate)
+                        , root.get(Entry_.amount), root.get(Entry_.type)
+                        , root.get(Entry_.category).get(Category_.name)
+                        , root.get(Entry_.person).get(Person_.name)));
+
+        Predicate[] predicates = createRestrictions(entryFilter, builder, root);
+        criteria.where(predicates);
+
+        TypedQuery<EntryResume> query = manager.createQuery(criteria);
         addRestrictionsToQuery(query, pageable);
 
         return new PageImpl<>(query.getResultList(), pageable, total(entryFilter));
@@ -65,7 +89,7 @@ public class EntryRepositoryQueryImpl implements EntryRepositoryQuery {
 		return predicates.toArray(new Predicate[predicates.size()]);
     }
 
-    private void addRestrictionsToQuery(TypedQuery<Entry> query, Pageable pageable) {
+    private void addRestrictionsToQuery(TypedQuery<?> query, Pageable pageable) {
         int currentPage = pageable.getPageNumber();
         int totalRecords = pageable.getPageSize();
         int firstRecord = currentPage * totalRecords;
