@@ -10,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,13 +26,15 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 
 @Configuration
 @EnableWebSecurity
-public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/categories").permitAll()
+                // .antMatchers("/categories").permitAll()
                 .anyRequest().authenticated().and()
+                // .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .csrf().disable()
                 .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
@@ -49,6 +52,20 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
         ).build();
     }
 
+    // CorsConfigurationSource corsConfigurationSource() {
+    //     CorsConfiguration configuration = new CorsConfiguration();
+    //     configuration.setAllowedMethods(List.of(
+    //             HttpMethod.GET.name(),
+    //             HttpMethod.PUT.name(),
+    //             HttpMethod.POST.name(),
+    //             HttpMethod.DELETE.name()
+    //     ));
+
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
+    //     return source;
+    // }
+
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {        
@@ -56,13 +73,13 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
     }
 
     @Bean
-    BCryptPasswordEncoder passwordEncoder() {
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
-		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
+		JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+		converter.setJwtGrantedAuthoritiesConverter(jwt -> {
 			List<String> authorities = jwt.getClaimAsStringList("authorities");
 
 			if (authorities == null) {
@@ -79,7 +96,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
 			return grantedAuthorities;
 		});
 
-		return jwtAuthenticationConverter;
+		return converter;
 	}
 
 }

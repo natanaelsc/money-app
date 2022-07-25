@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,17 +47,20 @@ public class EntryController {
     private MessageSource messageSource;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_FIND_ENTRY') and hasAuthority('SCOPE_read')")
     public Page<Entry> getAll(EntryFilter entryFilter, Pageable pageable) {
         return entryService.filter(entryFilter, pageable);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_FIND_ENTRY') and hasAuthority('SCOPE_read')")
     public ResponseEntity<Entry> getOne(@PathVariable Long id) {
         Entry entry = entryService.getOne(id);
         return entry != null ? ResponseEntity.ok(entry) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_REGISTER_ENTRY') and hasAuthority('SCOPE_write')")
     public ResponseEntity<Entry> create(@Valid @RequestBody Entry entry, HttpServletResponse response) {
         Entry entrySaved = entryService.save(entry);
         publisher.publishEvent(new EventResource(this, response, entrySaved.getId()));
@@ -64,6 +68,7 @@ public class EntryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_REMOVE_ENTRY') and hasAuthority('SCOPE_write')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         entryService.delete(id);

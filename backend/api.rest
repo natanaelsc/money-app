@@ -26,6 +26,7 @@ Content-Type: application/x-www-form-urlencoded
 
 ### List all categories
 GET {{baseUrl}}/categories HTTP/1.1
+Authorization: Bearer {{accessToken}}
 
 ### Create a new category
 POST {{baseUrl}}/categories HTTP/1.1

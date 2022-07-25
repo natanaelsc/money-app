@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,11 +32,13 @@ public class CategoryController {
     private ApplicationEventPublisher publisher;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_FIND_CATEGORY') and hasAuthority('SCOPE_read')")
     public List<Category> getAllCategories() {
         return categoryService.getAll();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_REGISTER_CATEGORY') and hasAuthority('SCOPE_write')")
     public ResponseEntity<Category> create(@Valid @RequestBody Category category, HttpServletResponse response) {
         Category categorySaved = categoryService.save(category);
         publisher.publishEvent(new EventResource(this, response, categorySaved.getId()));
@@ -43,6 +46,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_FIND_CATEGORY') and hasAuthority('SCOPE_read')")
     public ResponseEntity<Category> getCategoryByCode(@PathVariable Long id) {
         Category category = categoryService.getOne(id);
         return category != null ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();

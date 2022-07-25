@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class PersonController {
 	private ApplicationEventPublisher publisher;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_REGISTER_PERSON') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Person> create(@Valid @RequestBody Person person, HttpServletResponse response) {
 		Person personSaved = personService.save(person);
 		publisher.publishEvent(new EventResource(this, response, personSaved.getId()));	
@@ -38,24 +40,28 @@ public class PersonController {
 	}
 	
 	@GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_FIND_PERSON') and hasAuthority('SCOPE_read')")
 	public ResponseEntity<Person> findById(@PathVariable Long id) {
         Person person = personService.getOne(id);
         return person != null ? ResponseEntity.ok(person) : ResponseEntity.notFound().build();
 	}
 
 	@DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_REMOVE_PERSON') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		personService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_REGISTER_PERSON') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Person> update(@PathVariable Long id, @Valid @RequestBody Person person) {
 		personService.update(id, person);
 		return ResponseEntity.ok(person);
 	}
 
 	@PutMapping("/{id}/active")
+    @PreAuthorize("hasAuthority('ROLE_REGISTER_PERSON') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Person> updateStatus(@PathVariable Long id, @RequestBody Boolean active) {
 		personService.setStatus(id, active);
 		return ResponseEntity.ok().build();

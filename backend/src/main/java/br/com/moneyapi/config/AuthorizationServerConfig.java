@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -21,6 +22,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
 	private AuthenticationManager authenticationManager;
 
+	@Autowired	
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -30,6 +34,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.withClient("angular")
 				.secret("$2a$10$l3jtwU7f86uHBYfbCa7xhOAK/Jn3jkS/pG7VhGF/bZuuyPZ7n9oK2") // @ngul@r0
 				.scopes("read", "write")
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(1800)
+				.refreshTokenValiditySeconds(3600 * 24)
+			.and()
+				.withClient("mobile")
+				.secret(passwordEncoder.encode("m0b1le")) // Forma insegura
+				.scopes("read")
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(1800)
 				.refreshTokenValiditySeconds(3600 * 24);
