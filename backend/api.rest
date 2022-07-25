@@ -24,6 +24,10 @@ Content-Type: application/x-www-form-urlencoded
 
 &grant_type=refresh_token
 
+### Logout
+DELETE {{baseUrl}}/token/revoke HTTP/1.1
+Authorization: Bearer {{accessToken}}
+
 ### List all categories
 GET {{baseUrl}}/categories HTTP/1.1
 Authorization: Bearer {{accessToken}}
