@@ -115,6 +115,15 @@
 			<artifactId>spring-security-jwt</artifactId>
 			<version>1.1.1.RELEASE</version>
 		</dependency>
+		
+		<!-- Properties -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<scope>annotationProcessor</scope>
+			<optional>true</optional>
+		</dependency>
+	
 	</dependencies>
 	<build>
 		<plugins>

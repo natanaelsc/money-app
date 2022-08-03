@@ -1,0 +1,3 @@
+moneyapp:
+  security:
+    enable-https: true

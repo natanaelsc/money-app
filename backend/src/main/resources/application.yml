@@ -3,6 +3,10 @@ application:
   description: Application Backend
   version: 0.1
 
+moneyapp:
+  security:
+    enable-https: false
+
 server:
   port: 8080
 
