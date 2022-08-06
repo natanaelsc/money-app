@@ -1,0 +1,117 @@
+### Variables
+@baseUrl = http://localhost:8080
+@userPass = admin@moneyapp.com:admin
+
+### List all categories
+GET {{baseUrl}}/categories HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Create a new category
+POST {{baseUrl}}/categories HTTP/1.1
+Authorization: Basic {{userPass}}
+Content-Type: application/json
+
+{
+    "name": "Telefone"
+}
+
+### Get a category
+GET {{baseUrl}}/categories/1 HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Create a new person
+POST {{baseUrl}}/people HTTP/1.1
+Authorization: Basic {{userPass}}
+Content-Type: application/json
+
+{
+    "name": "João",
+    "address": {
+        "street": "Rua 1",
+        "number": "1",
+        "complement": "Apto 1",
+        "district": "Bairro 1",
+        "zip": "12345-678",
+        "city": "São Paulo",
+        "state": "SP"
+    },
+    "active": true
+}
+
+### Get a person
+GET {{baseUrl}}/people/4 HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Delete a person
+DELETE {{baseUrl}}/people/4 HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Update a person
+PUT {{baseUrl}}/people/8 HTTP/1.1
+Authorization: Basic {{userPass}}
+Content-Type: application/json
+
+{
+    "name": "João Pedro",
+    "address": {
+        "street": "Rua 1",
+        "number": "1",
+        "complement": "Apto 1",
+        "district": "Bairro 1",
+        "zip": "12345-678",
+        "city": "São Paulo",
+        "state": "SP"
+    },
+    "active": false
+}
+
+### Set status for person
+PUT {{baseUrl}}/people/5/active HTTP/1.1
+Authorization: Basic {{userPass}}
+Content-Type: application/json
+
+false
+
+### Get all entries
+GET {{baseUrl}}/entries HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Get entries by description
+GET {{baseUrl}}/entries?description=mensal HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Get entries by date
+GET {{baseUrl}}/entries?dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Get entries by date and pagination
+GET {{baseUrl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+
+### Resume entries
+GET {{baseUrl}}/entries?resume HTTP/1.1
+
+### Resume entries by description
+GET {{baseUrl}}/entries?resume&description=Salário HTTP/1.1
+
+### Get a entry
+GET {{baseUrl}}/entries/1 HTTP/1.1
+
+### Create a new entry
+POST {{baseUrl}}/entries HTTP/1.1
+Content-Type: application/json
+
+{
+    "description": "Prêmio semestral",
+    "dueDate": "2022-06-30",
+    "amount": 10000,
+    "type": "INCOME",
+    "category": {
+        "id": 5
+    },
+    "person": {
+        "id": 1
+    }
+}
+
+### Delete a entry
+DELETE {{baseUrl}}/entries/1 HTTP/1.1

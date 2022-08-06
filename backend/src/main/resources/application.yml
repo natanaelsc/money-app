@@ -11,6 +11,10 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: basic-security
+    group:
+      prod: oauth-security
 
   h2:
     console:
