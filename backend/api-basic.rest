@@ -90,18 +90,23 @@ Authorization: Basic {{userPass}}
 
 ### Get entries by date and pagination
 GET {{baseUrl}}/entries?size=3&page=1dueDateFrom=2022-06-10&dueDateUntil=2022-06-15 HTTP/1.1
+Authorization: Basic {{userPass}}
 
 ### Resume entries
 GET {{baseUrl}}/entries?resume HTTP/1.1
+Authorization: Basic {{userPass}}
 
 ### Resume entries by description
 GET {{baseUrl}}/entries?resume&description=Salário HTTP/1.1
+Authorization: Basic {{userPass}}
 
 ### Get a entry
 GET {{baseUrl}}/entries/1 HTTP/1.1
+Authorization: Basic {{userPass}}
 
 ### Create a new entry
 POST {{baseUrl}}/entries HTTP/1.1
+Authorization: Basic {{userPass}}
 Content-Type: application/json
 
 {
@@ -119,3 +124,4 @@ Content-Type: application/json
 
 ### Delete a entry
 DELETE {{baseUrl}}/entries/1 HTTP/1.1
+Authorization: Basic {{userPass}}
