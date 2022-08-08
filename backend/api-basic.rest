@@ -125,3 +125,21 @@ Content-Type: application/json
 ### Delete a entry
 DELETE {{baseUrl}}/entries/1 HTTP/1.1
 Authorization: Basic {{userPass}}
+
+### Update a entry
+PUT {{baseUrl}}/entries/1 HTTP/1.1
+Authorization: Basic {{userPass}}
+Content-Type: application/json
+
+{
+    "description": "Prêmio semestral",
+    "dueDate": "2022-06-30",
+    "amount": 10000,
+    "type": "INCOME",
+    "category": {
+        "id": 5
+    },
+    "person": {
+        "id": 1
+    }
+}

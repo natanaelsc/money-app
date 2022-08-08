@@ -2,8 +2,8 @@ package br.com.moneyapi.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,10 +43,28 @@ public class EntryService {
         return entryRepository.save(entry); 
     }
 
+    public Entry update(long id, Entry entry) {
+        Entry entrySaved = findById(id);
+		if (!entry.getPerson().equals(entrySaved.getPerson())) {
+			validPerson(entry);
+		}
+		BeanUtils.copyProperties(entry, entrySaved, "id");
+		return entryRepository.save(entrySaved);
+    }
+
     public void delete(Long id) { entryRepository.deleteById(id); }
 
     private Entry findById(Long id) {
-        Optional<Entry> entry = entryRepository.findById(id);
-        return entry.orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return entryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    private void validPerson(Entry entry) {
+        Optional<Person> person = null;
+		if (entry.getPerson().getId() != null) {
+			person = personRepository.findById(entry.getPerson().getId());
+		}
+		if (person.isEmpty() || person.get().isInactive()) {
+			throw new PersonDoesNotExistOrIsInactiveException();
+		}
     }
 }
