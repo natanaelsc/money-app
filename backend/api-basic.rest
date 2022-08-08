@@ -38,8 +38,12 @@ Content-Type: application/json
     "active": true
 }
 
-### Get a person
+### Get a person by id
 GET {{baseUrl}}/people/4 HTTP/1.1
+Authorization: Basic {{userPass}}
+
+### Get a person by name
+GET {{baseUrl}}/people?name=Carlos HTTP/1.1
 Authorization: Basic {{userPass}}
 
 ### Delete a person

@@ -23,7 +23,7 @@ public class EntryService {
     private EntryRepository entryRepository;
 
     @Autowired
-    private PersonRepository personReRepository;
+    private PersonRepository personRepository;
 
     public Page<Entry> filter(EntryFilter entryFilter, Pageable pageable) { 
         return entryRepository.filter(entryFilter, pageable); 
@@ -36,7 +36,7 @@ public class EntryService {
     public Entry getOne(Long id) { return findById(id); }
 
     public Entry save(Entry entry) { 
-        Optional<Person> person = personReRepository.findById(entry.getPerson().getId());
+        Optional<Person> person = personRepository.findById(entry.getPerson().getId());
         if (person.isEmpty() || person.get().isInactive()) {
             throw new PersonDoesNotExistOrIsInactiveException();
         }

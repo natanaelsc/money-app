@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.moneyapi.model.Person;
@@ -32,6 +34,10 @@ public class PersonService {
         Person personSaved = findById(id);
         personSaved.setActive(active);
         return personRepository.save(personSaved);
+    }
+
+    public Page<Person> findByNameContaining(String name, Pageable pageable) {
+        return personRepository.findByNameContaining(name, pageable);
     }
 
     private Person findById(Long id) {
