@@ -33,9 +33,3 @@ npm install primeng --save
 npm install primeflex --save
 npm install primeicons --save
 ```
-
-## [FontAwesome](https://fontawesome.com/)
-
-```cmd
-npm install fontawesome --save
-```
